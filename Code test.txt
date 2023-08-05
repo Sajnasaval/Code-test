@@ -1,0 +1,55 @@
+1.write a program to display screen which accept department & copies employees of selected department to another file.
+
+  SEU==>                                                                   ASSIR 
+ FMT FX FFilename++IPEASF.....L.....A.Device+.Keywords+++++++++++++++++++++++++ 
+        *************** Beginning of data ************************************* 
+0001.00 FEMPLF8    IF   E           K DISK                                      
+0002.00 FAEMP      O    E           K DISK                                      
+0003.00 FASSID     CF   E             WORKSTN                                   
+0005.00 DQDEPT            S              2P 0 INZ(30)                           
+0006.01 C                   EXFMT     SCR                                       
+0009.00 C     QDEPT         SETLL     EMPREC                                    
+0010.00 C     QDEPT         READE     EMPREC                                    
+0011.00 C                   DOW       NOT %EOF                                  
+0013.00 C                   WRITE     EREC                                      
+0014.00 C     QDEPT         READE     EMPREC                                    
+0016.00 C                   ENDDO                                               
+0017.00 C                   EVAL      *INLR=*ON                                 
+        ****************** End of data **************************************** 
+
+2.Write a program to display subfile will all records,odd row should be in blue colour and evenrow should be in red colour
+
+ SEU==>                                                                 COLSFLR 
+ FMT FX FFilename++IPEASF.....L.....A.Device+.Keywords+++++++++++++++++++++++++ 
+        *************** Beginning of data ************************************* 
+0002.00 FCOLLEGE   IF   E           K DISK                                      
+0003.00 FCOLSFLD   CF   E             WORKSTN SFILE(COLSFL:RRN)                 
+0004.00 DRRN              S              3P 0 INZ(0)                            
+0005.00 C** CLEAR SUBFILE                                                       
+0006.00 C                   EVAL      *IN73=*ON                                 
+0007.00 C                   WRITE     COLCTL                                    
+0008.00 C                   EVAL      RRN=0                                     
+0009.00 C                   EVAL      *IN73=*OFF                                
+0010.00 C** FILL SUBFILE                                                        
+0011.00 C     *LOVAL        SETLL     COLREC                                    
+0012.00 C                   READ      COLREC                                    
+0013.00 C                   DOW       NOT %EOF                                  
+0013.01 C                   MOVEA     '00'          *IN(41)                     
+0015.00 C                   IF        %REM(RRN:2)=1                             
+0018.00 C                   EVAL      *IN41=*ON                                 
+0020.01 C                   ELSE                                                
+0022.00 C                   EVAL      *IN42=*ON    
+0023.00 C                   ENDIF                  
+0026.00 C                   EVAL      RRN+=1       
+0027.00 C                   WRITE     COLSFL       
+0028.00 C                   READ      COLREC       
+0029.00 C                   ENDDO                  
+0030.00 C** DISPLAY/EXECUTE THE SUBFILE....        
+0031.00 C                   EVAL      *IN71=*ON    
+0032.00 C                   EVAL      *IN72=*ON    
+0033.00 C                   DOW       NOT *IN03                                 
+0034.00 C                   WRITE     FOOTER                                    
+0035.00 C                   EXFMT     COLCTL                                    
+0036.00 C                   ENDDO                                               
+0037.00 C                   EVAL      *INLR=*ON                                 
+        ****************** End of data ****************************************                                                                                 
